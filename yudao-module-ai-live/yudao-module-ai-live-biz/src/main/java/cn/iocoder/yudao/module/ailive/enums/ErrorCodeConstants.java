@@ -11,4 +11,5 @@ public interface ErrorCodeConstants {
     ErrorCode LICENSE_PLAN_INVALID_DURATION = new ErrorCode(1_015_000_003, "授权套餐有效期配置不合法");
     ErrorCode CUSTOMER_LICENSE_NOT_EXISTS = new ErrorCode(1_015_001_000, "客户授权不存在");
     ErrorCode CUSTOMER_LICENSE_STATUS_INVALID = new ErrorCode(1_015_001_001, "当前授权状态不允许该操作");
+    ErrorCode DEVICE_NOT_EXISTS = new ErrorCode(1_015_002_000, "边缘设备不存在");
 }
