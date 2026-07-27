@@ -1,0 +1,1 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"><modelVersion>4.0.0</modelVersion><parent><groupId>cn.iocoder.boot</groupId><artifactId>yudao-module-ai-live</artifactId><version>${revision}</version><relativePath>../pom.xml</relativePath></parent><artifactId>yudao-module-ai-live-api</artifactId></project>

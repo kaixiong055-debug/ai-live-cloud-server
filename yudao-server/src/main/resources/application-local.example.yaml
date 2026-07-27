@@ -1,0 +1,14 @@
+# Copy this file to application-local.yaml and set local values outside Git.
+spring:
+  datasource:
+    dynamic:
+      datasource:
+        master:
+          url: ${DB_URL:jdbc:mysql://127.0.0.1:3306/ai_live?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai}
+          username: ${DB_USERNAME:root}
+          password: ${DB_PASSWORD:}
+  redis:
+    host: ${REDIS_HOST:127.0.0.1}
+    port: ${REDIS_PORT:6379}
+    database: ${REDIS_DATABASE:0}
+    password: ${REDIS_PASSWORD:}
