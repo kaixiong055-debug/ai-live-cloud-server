@@ -18,6 +18,7 @@ public interface LicensePlanMapper extends BaseMapperX<LicensePlanDO> {
         return selectPage(reqVO, new LambdaQueryWrapperX<LicensePlanDO>()
                 .likeIfPresent(LicensePlanDO::getName, reqVO.getName())
                 .likeIfPresent(LicensePlanDO::getCode, reqVO.getCode())
+                .eqIfPresent(LicensePlanDO::getLicenseType, reqVO.getLicenseType())
                 .eqIfPresent(LicensePlanDO::getStatus, reqVO.getStatus())
                 .orderByDesc(LicensePlanDO::getId));
     }

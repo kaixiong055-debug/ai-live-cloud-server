@@ -9,5 +9,6 @@ import lombok.EqualsAndHashCode;
 public class LicensePlanPageReqVO extends PageParam {
     private String name;
     private String code;
+    private Integer licenseType;
     private Integer status;
 }

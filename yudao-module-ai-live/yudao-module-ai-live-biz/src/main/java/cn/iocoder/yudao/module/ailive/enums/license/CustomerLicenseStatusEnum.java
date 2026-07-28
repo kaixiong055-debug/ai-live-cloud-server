@@ -6,11 +6,11 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum CustomerLicenseStatusEnum {
-    PENDING(0, "待激活"),
-    ACTIVE(1, "已启用"),
-    PAUSED(2, "已暂停"),
+    PENDING(0, "待生效"),
+    ACTIVE(1, "正常"),
+    SUSPENDED(2, "已暂停"),
     REVOKED(3, "已吊销"),
-    EXPIRED(4, "已过期");
+    EXPIRED(4, "已到期");
 
     private final Integer value;
     private final String name;

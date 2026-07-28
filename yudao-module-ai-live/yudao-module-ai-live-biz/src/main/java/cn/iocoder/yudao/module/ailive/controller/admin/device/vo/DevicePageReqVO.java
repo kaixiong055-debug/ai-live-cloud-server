@@ -10,5 +10,6 @@ public class DevicePageReqVO extends PageParam {
     private String deviceCode;
     private String deviceName;
     private Long licenseId;
+    private String licenseNo;
     private Integer status;
 }

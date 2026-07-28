@@ -7,6 +7,9 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class CustomerLicensePageReqVO extends PageParam {
+    private String licenseNo;
     private String customerName;
+    private String customerCode;
+    private Long planId;
     private Integer status;
 }

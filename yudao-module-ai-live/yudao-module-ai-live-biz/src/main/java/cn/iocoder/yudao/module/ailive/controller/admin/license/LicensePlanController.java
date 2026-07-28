@@ -51,6 +51,14 @@ public class LicensePlanController {
         return success(true);
     }
 
+    @PutMapping("/change-status")
+    @Operation(summary = "启用或停用授权套餐")
+    @PreAuthorize("@ss.hasPermission('ai-live:license-plan:change-status')")
+    public CommonResult<Boolean> changeStatus(@RequestParam("id") Long id, @RequestParam("status") Integer status) {
+        licensePlanService.changeStatus(id, status);
+        return success(true);
+    }
+
     @GetMapping("/get")
     @Operation(summary = "获得授权套餐")
     @PreAuthorize("@ss.hasPermission('ai-live:license-plan:query')")

@@ -13,6 +13,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import javax.annotation.Resource;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 import static cn.iocoder.yudao.framework.common.exception.util.ServiceExceptionUtil.exception;
 import static cn.iocoder.yudao.module.ailive.enums.ErrorCodeConstants.*;
@@ -20,11 +23,13 @@ import static cn.iocoder.yudao.module.ailive.enums.ErrorCodeConstants.*;
 @Service
 @Validated
 public class LicensePlanServiceImpl implements LicensePlanService {
+
     @Resource
     private LicensePlanMapper mapper;
 
     @Override
     public Long createLicensePlan(LicensePlanSaveReqVO reqVO) {
+        normalize(reqVO);
         validateForSave(null, reqVO);
         LicensePlanDO plan = BeanUtils.toBean(reqVO, LicensePlanDO.class);
         mapper.insert(plan);
@@ -33,6 +38,7 @@ public class LicensePlanServiceImpl implements LicensePlanService {
 
     @Override
     public void updateLicensePlan(LicensePlanSaveReqVO reqVO) {
+        normalize(reqVO);
         validateForSave(reqVO.getId(), reqVO);
         mapper.updateById(BeanUtils.toBean(reqVO, LicensePlanDO.class));
     }
@@ -54,6 +60,23 @@ public class LicensePlanServiceImpl implements LicensePlanService {
     }
 
     @Override
+    public List<LicensePlanDO> getLicensePlanList(Collection<Long> ids) {
+        if (ids == null || ids.isEmpty()) {
+            return Collections.emptyList();
+        }
+        return mapper.selectBatchIds(ids);
+    }
+
+    @Override
+    public void changeStatus(Long id, Integer status) {
+        validateExists(id);
+        LicensePlanDO update = new LicensePlanDO();
+        update.setId(id);
+        update.setStatus(status);
+        mapper.updateById(update);
+    }
+
+    @Override
     public LicensePlanDO validateEnabledLicensePlan(Long id) {
         LicensePlanDO plan = getLicensePlan(id);
         if (plan == null) {
@@ -63,6 +86,12 @@ public class LicensePlanServiceImpl implements LicensePlanService {
             throw exception(LICENSE_PLAN_DISABLED);
         }
         return plan;
+    }
+
+    private void normalize(LicensePlanSaveReqVO reqVO) {
+        if (LicenseTypeEnum.PERPETUAL.getValue().equals(reqVO.getLicenseType())) {
+            reqVO.setDurationDays(0);
+        }
     }
 
     private void validateForSave(Long id, LicensePlanSaveReqVO reqVO) {

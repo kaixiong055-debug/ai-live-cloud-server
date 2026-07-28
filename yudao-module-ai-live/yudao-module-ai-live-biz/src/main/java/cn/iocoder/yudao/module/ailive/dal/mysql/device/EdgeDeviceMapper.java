@@ -9,11 +9,17 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface EdgeDeviceMapper extends BaseMapperX<EdgeDeviceDO> {
+
     default PageResult<EdgeDeviceDO> selectPage(DevicePageReqVO req) {
         return selectPage(req, new LambdaQueryWrapperX<EdgeDeviceDO>()
                 .likeIfPresent(EdgeDeviceDO::getDeviceCode, req.getDeviceCode())
                 .likeIfPresent(EdgeDeviceDO::getDeviceName, req.getDeviceName())
                 .eqIfPresent(EdgeDeviceDO::getLicenseId, req.getLicenseId())
-                .eqIfPresent(EdgeDeviceDO::getStatus, req.getStatus()).orderByDesc(EdgeDeviceDO::getId));
+                .eqIfPresent(EdgeDeviceDO::getStatus, req.getStatus())
+                .orderByDesc(EdgeDeviceDO::getId));
+    }
+
+    default Long selectOnlineCount() {
+        return selectCount(new LambdaQueryWrapperX<EdgeDeviceDO>().eq(EdgeDeviceDO::getStatus, 1));
     }
 }
